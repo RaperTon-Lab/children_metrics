@@ -1,7 +1,5 @@
-#include <stdlib.h>
 #include <iostream>
 #include "weight.hpp"
-#include <iomanip>
 #include "utils.hpp"
 
 /*
