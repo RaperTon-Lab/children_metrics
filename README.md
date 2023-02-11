@@ -14,10 +14,14 @@ The program read data from mysql database and stores the result by creating a ne
 
 ### Compiling
 
+On Ubuntu
+
 ```shell
 g++ -Wall -I/usr/include/cppconn -o main main.cpp -L/usr/lib -lmysqlcppconn
 ```
 ### Execution
+
+On Ubuntu
 
 ```shell
 ./main
