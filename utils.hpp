@@ -40,3 +40,19 @@ std::string tableName(Date _todayDate, std::string group)
     std::string query = findMonth(_todayDate.tmonth) + std::to_string(_todayDate.tyear) + group;
     return query;
 }
+
+std::string toString(float number)
+{
+    std::string str = std::to_string(number);
+
+    // Find the position of the decimal point
+    size_t decimalPos = str.find('.');
+
+    // If the decimal point is found, keep only one decimal place
+    if (decimalPos != std::string::npos)
+    {
+        str = str.substr(0, decimalPos + 2); // Include one decimal place and the decimal point
+    }
+
+    return str;
+}
