@@ -3,6 +3,7 @@ from PyPDF2 import PdfMerger
 
 # Directory containing the PDF files to merge
 directory = os.getcwd()
+OUTPUT_FOLDER = "output"
 
 # Output merged PDF file
 output_file = "merged.pdf"
@@ -21,8 +22,16 @@ for pdf_file in pdf_files:
     file_path = os.path.join(directory, pdf_file)
     merger.append(file_path)
 
-# Save the merged PDF file
-merger.write(output_file)
+# Save the merged PDF file in the "output" folder
+output_path = os.path.join(OUTPUT_FOLDER, output_file)
+merger.write(output_path)
 merger.close()
 
-print(f"Merged {len(pdf_files)} PDF files into '{output_file}'.")
+# Remove all the source PDF files
+for pdf_file in pdf_files:
+    file_path = os.path.join(directory, pdf_file)
+    os.remove(file_path)
+
+print(
+    f"Merged {len(pdf_files)} PDF files into '{output_path}'. Source files have been removed."
+)

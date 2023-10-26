@@ -14,6 +14,7 @@ int main(void)
     Date date = Date();
     std::string _checkTableQuery;
     std::string choice;
+    std::string listOfTable = "";
 
     try
     {
@@ -36,6 +37,7 @@ int main(void)
             std::cout << "\n\n--------------Infant-------\n\n";
             // Children table block
             std::string tablename = tableName(date, "infant");
+            listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
             res = stmt->executeQuery(_checkTableQuery);
             res->next();
@@ -87,6 +89,7 @@ int main(void)
             std::cout << "\n\n--------------children-------\n\n";
             // Children table block
             std::string tablename = tableName(date, "children");
+            listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
             res = stmt->executeQuery(_checkTableQuery);
             res->next();
@@ -138,6 +141,7 @@ int main(void)
 
             // Preschool table block
             std::string tablename = tableName(date, "preschool");
+            listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
             res = stmt->executeQuery(_checkTableQuery);
             res->next();
@@ -187,6 +191,7 @@ int main(void)
             std::cout << "\n\n\n\n--------------Aolescent---------\n\n";
             // Adolescent table block
             std::string tablename = tableName(date, "adolescent");
+            listOfTable = listOfTable + tablename;
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
             res = stmt->executeQuery(_checkTableQuery);
             res->next();
@@ -237,7 +242,8 @@ int main(void)
     std::cout << std::endl;
 
     std::cout << "--------------------------------Running the Python script from for PDF generation--------------------------------" << std::endl;
-    std::string py_script = "python3 tabletopdf.py";
+    std::string py_script = "python3 tabletopdf.py \"" + listOfTable + "\"";
+    std::cout << py_script << std::endl;
     int exitCode = system(py_script.c_str());
     if (exitCode == 0)
     {

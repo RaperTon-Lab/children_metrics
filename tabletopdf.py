@@ -1,25 +1,36 @@
+import os  # Import the os module for file operations
 import mysql.connector
 from tabulate import tabulate
 from fpdf import FPDF
+import sys
 
 # MySQL configuration
 MYSQL_HOST = "localhost"
 MYSQL_USER = "user"
 MYSQL_PASSWORD = "passworD@123"
 MYSQL_DATABASE = "angalwadi"
-TABLES = [
-    "October2023infant",
-    "October2023children",
-    "October2023preschool",
-    "October2023adolescent",
-]
 
+if len(sys.argv) != 2:
+    print("Usage: python script.py string_list")
+    sys.exit(1)
+
+# Get the space-separated string from the command line argument
+space_separated_string = sys.argv[1]
+
+# Split the string into a list of strings
+TABLES = space_separated_string.split()
+
+# Define the output folder
+OUTPUT_FOLDER = "output"
+
+# Create the output folder if it doesn't exist
+if not os.path.exists(OUTPUT_FOLDER):
+    os.mkdir(OUTPUT_FOLDER)
 
 # PDF page configuration
 PAGE_WIDTH = 210  # Width of A4 page in mm
 PAGE_HEIGHT = 297  # Height of A4 page in mm
 MARGIN = 10  # Margin size in mm
-
 
 connection = mysql.connector.connect(
     host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD, database=MYSQL_DATABASE
@@ -27,8 +38,8 @@ connection = mysql.connector.connect(
 cursor = connection.cursor()
 
 for MYSQL_TABLE in TABLES:
-    # Output PDF file
-    OUTPUT_FILE = MYSQL_TABLE + ".pdf"
+    # Output PDF file with the full path to the "output" folder
+    OUTPUT_FILE = os.path.join(OUTPUT_FOLDER, MYSQL_TABLE + ".pdf")
 
     # MySQL query to retrieve data
     query = f"SELECT Sl_No, Name, Year, Month, Height_cm, Weight_Kg FROM {MYSQL_TABLE}"
