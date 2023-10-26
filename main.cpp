@@ -1,5 +1,5 @@
 #include <iostream>
-// #include <Python.h>
+#include <cstdlib>
 #include "weight.hpp"
 #include "utils.hpp"
 
@@ -8,12 +8,9 @@
   headers from cppconn/ and mysql_driver.h + mysql_util.h
   (and mysql_connection.h). This will reduce your build time!
 */
-
-using namespace std;
-
 int main(void)
 {
-    cout << endl;
+    std::cout << std::endl;
     Date date = Date();
     std::string _checkTableQuery;
     std::string choice;
@@ -44,11 +41,11 @@ int main(void)
             res->next();
             if (res->getInt(1) == 0)
             {
-                cout << "Table does not exist." << endl;
+                std::cout << "Table does not exist." << std::endl;
             }
             else
             {
-                cout << "Table exists for this month." << endl;
+                std::cout << "Table exists for this month." << std::endl;
                 std::cout << "\nDo you want to recalculate and recreate table, y|n:\t";
                 std::cin >> choice;
                 if (choice == "n")
@@ -60,7 +57,7 @@ int main(void)
             }
             // std::cout << "\n Not Jumped\n";
             stmt->execute("CREATE TABLE " + tablename + " (Sl_No INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL,Year INT NOT NULL,Month INT NOT NULL,Height_cm FLOAT NOT NULL,Weight_Kg FLOAT NOT NULL,PRIMARY KEY(Sl_No)); "); // create a new table !!!!!!!!!!! upto here
-            cout << "\n Table " + tablename + " created.\n";
+            std::cout << "\n Table " + tablename + " created.\n";
             res = stmt->executeQuery("SELECT * from infant;");
             while (res->next())
             {
@@ -79,7 +76,7 @@ int main(void)
                 }
                 std::string sex = res->getString("Sex");
                 std::pair<float, float> metrics = calculateMetrics(age, sex[0]);
-                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + to_string(age.years) + "," + to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
+                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for infant for this month complete.\n";
         }
@@ -95,11 +92,11 @@ int main(void)
             res->next();
             if (res->getInt(1) == 0)
             {
-                cout << "Table does not exist." << endl;
+                std::cout << "Table does not exist." << std::endl;
             }
             else
             {
-                cout << "Table exists for this month." << endl;
+                std::cout << "Table exists for this month." << std::endl;
                 std::cout << "\nDo you want to recalculate and recreate table, y|n:\t";
                 std::cin >> choice;
                 if (choice == "n")
@@ -111,7 +108,7 @@ int main(void)
             }
             // std::cout << "\n Not Jumped\n";
             stmt->execute("CREATE TABLE " + tablename + " (Sl_No INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL,Year INT NOT NULL,Month INT NOT NULL,Height_cm FLOAT NOT NULL,Weight_Kg FLOAT NOT NULL,PRIMARY KEY(Sl_No)); "); // create a new table !!!!!!!!!!! upto here
-            cout << "\n Table " + tablename + " created.\n";
+            std::cout << "\n Table " + tablename + " created.\n";
             res = stmt->executeQuery("SELECT * from children;");
             while (res->next())
             {
@@ -130,7 +127,7 @@ int main(void)
                 }
                 std::string sex = res->getString("Sex");
                 std::pair<float, float> metrics = calculateMetrics(age, sex[0]);
-                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + to_string(age.years) + "," + to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
+                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for children for this month complete.\n";
         }
@@ -146,11 +143,11 @@ int main(void)
             res->next();
             if (res->getInt(1) == 0)
             {
-                cout << "Table does not exist." << endl;
+                std::cout << "Table does not exist." << std::endl;
             }
             else
             {
-                cout << "Table exists for this month for preschool." << endl;
+                std::cout << "Table exists for this month for preschool." << std::endl;
                 std::cout << "\nDo you want to recalculate and recreate table, y|n:\t";
                 std::cin >> choice;
                 if (choice == "n")
@@ -162,7 +159,7 @@ int main(void)
             }
             // std::cout << "\n Not Jumped\n";
             stmt->execute("CREATE TABLE " + tablename + " (Sl_No INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL,Year INT NOT NULL,Month INT NOT NULL,Height_cm FLOAT NOT NULL,Weight_Kg FLOAT NOT NULL,PRIMARY KEY(Sl_No)); "); // create a new table !!!!!!!!!!! upto here
-            cout << "\n Table " + tablename + " created.\n";
+            std::cout << "\n Table " + tablename + " created.\n";
             res = stmt->executeQuery("SELECT * from preschool;");
             while (res->next())
             {
@@ -179,7 +176,7 @@ int main(void)
                 }
                 std::string sex = res->getString("Sex");
                 std::pair<float, float> metrics = calculateMetrics(age, sex[0]);
-                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + to_string(age.years) + "," + to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
+                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for preschool for this month complete.\n";
         }
@@ -195,11 +192,11 @@ int main(void)
             res->next();
             if (res->getInt(1) == 0)
             {
-                cout << "Table does not exist." << endl;
+                std::cout << "Table does not exist." << std::endl;
             }
             else
             {
-                cout << "Table exists for this month for adolescent." << endl;
+                std::cout << "Table exists for this month for adolescent." << std::endl;
                 std::cout << "\nDo you want to recalculate and recreate table, y|n:\t";
                 std::cin >> choice;
                 if (choice == "n")
@@ -211,7 +208,7 @@ int main(void)
             }
             // std::cout << "\n Not Jumped\n";
             stmt->execute("CREATE TABLE " + tablename + " (Sl_No INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL,Year INT NOT NULL,Month INT NOT NULL,Height_cm FLOAT NOT NULL,Weight_Kg FLOAT NOT NULL,PRIMARY KEY(Sl_No)); "); // create a new table !!!!!!!!!!! upto here
-            cout << "\n Table " + tablename + " created.\n";
+            std::cout << "\n Table " + tablename + " created.\n";
             res = stmt->executeQuery("SELECT * from adolescent;");
             while (res->next())
             {
@@ -219,7 +216,7 @@ int main(void)
                 Age age(_birthdate, date);
                 std::string sex = res->getString("Sex");
                 std::pair<float, float> metrics = calculateMetrics(age, sex[0]);
-                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + to_string(age.years) + "," + to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
+                stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for adolescent for this month complete.\n";
         }
@@ -230,14 +227,38 @@ int main(void)
     }
     catch (sql::SQLException &e)
     {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-        cout << "# ERR: " << e.what();
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+        std::cout << "# ERR: SQLException in " << __FILE__;
+        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    cout << endl;
+    std::cout << std::endl;
+
+    std::cout << "--------------------------------Running the Python script from for PDF generation--------------------------------" << std::endl;
+    std::string py_script = "python3 tabletopdf.py";
+    int exitCode = system(py_script.c_str());
+    if (exitCode == 0)
+    {
+        std::cout << "\nPDF Generation Successful!\n";
+    }
+    else
+    {
+        std::cerr << "\nCannot run the specified python script!\n";
+    }
+
+    std::cout << "--------------------------------Running the Python script from for PDF merger--------------------------------" << std::endl;
+    py_script = "python3 pdfmerger.py";
+    exitCode = system(py_script.c_str());
+    if (exitCode == 0)
+    {
+        std::cout << "\nPDF merger Successful!\n";
+    }
+    else
+    {
+        std::cerr << "\nCannot run the specified python script!\n";
+    }
 
     return EXIT_SUCCESS;
 }
