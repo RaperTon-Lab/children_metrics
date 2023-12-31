@@ -5,6 +5,7 @@
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
+#include "date.hpp"
 std::string findMonth(int month)
 {
     if (month == 1)
