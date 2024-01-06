@@ -35,7 +35,7 @@ int main(void)
         for (int i = 0; i <= 0; ++i)
         {
             std::cout << "\n\n--------------Infant-------\n\n";
-            // Children table block
+            // Infant table block
             std::string tablename = tableName(date, "infant");
             listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
@@ -72,8 +72,8 @@ int main(void)
                     stmt->execute("UPDATE infant SET Sl_No = @num := (@num+1);");
                     stmt->execute("ALTER TABLE infant AUTO_INCREMENT = 1;");
                     std::cout << "\nDeleted " + res->getString("Name") + " from infant Table.\n";
-                    stmt->execute("INSERT INTO infant (Name,DOB,Sex) values('" + res->getString("Name") + "','" + res->getString("DOB") + "','" + res->getString("Sex") + "');");
-                    std::cout << "\n" + res->getString("Name") + " added to infant table.\n";
+                    stmt->execute("INSERT INTO children (Name,DOB,Sex) values('" + res->getString("Name") + "','" + res->getString("DOB") + "','" + res->getString("Sex") + "');");
+                    std::cout << "\n" + res->getString("Name") + " added to children table.\n";
                     continue;
                 }
                 std::string sex = res->getString("Sex");
