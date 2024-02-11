@@ -27,9 +27,9 @@ output_path = directory
 for pdf_file in pdf_files:
     if pdf_file == output_file:
         continue
-    else:
-        file_path = os.path.join(output_path, pdf_file)
-        merger.append(file_path)
+
+    file_path = os.path.join(output_path, pdf_file)
+    merger.append(file_path)
 
 for pdf_file in pdf_files:
     file_path = os.path.join(directory, pdf_file)
