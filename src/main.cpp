@@ -21,7 +21,6 @@ int main(void)
         sql::Driver *driver;
         sql::Connection *con;
         sql::Statement *stmt;
-        sql::ResultSet *res;
 
         /* Create a connection */
         driver = get_driver_instance();
@@ -35,11 +34,12 @@ int main(void)
         for (int i = 0; i <= 0; ++i)
         {
             std::cout << "\n\n--------------Infant-------\n\n";
+            stmt = con->createStatement();
             // Infant table block
             std::string tablename = tableName(date, "infant");
             listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
-            res = stmt->executeQuery(_checkTableQuery);
+            sql::ResultSet *res = stmt->executeQuery(_checkTableQuery);
             res->next();
             if (res->getInt(1) == 0)
             {
@@ -81,6 +81,7 @@ int main(void)
                 stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for infant for this month complete.\n";
+            delete res;
         }
 
         // children
@@ -88,10 +89,11 @@ int main(void)
         {
             std::cout << "\n\n--------------children-------\n\n";
             // Children table block
+            stmt = con->createStatement();
             std::string tablename = tableName(date, "children");
             listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
-            res = stmt->executeQuery(_checkTableQuery);
+            sql::ResultSet *res = stmt->executeQuery(_checkTableQuery);
             res->next();
             if (res->getInt(1) == 0)
             {
@@ -133,17 +135,20 @@ int main(void)
                 stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for children for this month complete.\n";
+            delete res;
         }
 
+        // preschool
         for (int i = 0; i <= 0; ++i)
         {
             std::cout << "\n\n\n\n--------------Pre school---------\n\n";
 
             // Preschool table block
+            stmt = con->createStatement();
             std::string tablename = tableName(date, "preschool");
             listOfTable = listOfTable + tablename + " ";
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
-            res = stmt->executeQuery(_checkTableQuery);
+            sql::ResultSet *res = stmt->executeQuery(_checkTableQuery);
             res->next();
             if (res->getInt(1) == 0)
             {
@@ -183,6 +188,7 @@ int main(void)
                 stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for preschool for this month complete.\n";
+            delete res;
         }
 
         // teens
@@ -190,10 +196,11 @@ int main(void)
         {
             std::cout << "\n\n\n\n--------------Aolescent---------\n\n";
             // Adolescent table block
+            stmt = con->createStatement();
             std::string tablename = tableName(date, "adolescent");
             listOfTable = listOfTable + tablename;
             _checkTableQuery = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'angalwadi' AND table_name = '" + tablename + "';";
-            res = stmt->executeQuery(_checkTableQuery);
+            sql::ResultSet *res = stmt->executeQuery(_checkTableQuery);
             res->next();
             if (res->getInt(1) == 0)
             {
@@ -224,9 +231,9 @@ int main(void)
                 stmt->execute("INSERT INTO " + tablename + " (Name, Year,Month,Height_cm,Weight_Kg) values('" + res->getString("Name") + "'," + std::to_string(age.years) + "," + std::to_string(age.months) + "," + toString(metrics.first) + "," + toString(metrics.second) + ");");
             }
             std::cout << "\nTable generation for adolescent for this month complete.\n";
+            delete res;
         }
 
-        delete res;
         delete stmt;
         delete con;
     }
